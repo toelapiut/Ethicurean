@@ -1,0 +1,15 @@
+{%extends 'base.html'%} {% import 'macros.html' as macro%} {%block content%} {%import 'bootstrap/wtf.html' as wtf%}
+{% block styles%}
+
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/k.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Itim|Kranky|Londrina+Shadow" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+{% endblock %}
+
+<div class="row">
+    <div class="head">
+      <h1>Ethicurean Fashion</h1>
+    </div>
+</div>
+{%endblock%}
