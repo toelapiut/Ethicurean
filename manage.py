@@ -1,22 +1,34 @@
 from app import create_app
-from flask_script import Manage,Serve
+from flask_script import Manager,Server
 from app import create_app,db
-from app.models import User
+from app.models import User,Blog,Comment
 from flask_migrate import Migrate,MigrateCommand
-
+from datetime import datetime
 # Creating app instance
-create_app('development')
+app=create_app('development')
 
-manager=Manage(app)
-manager.add_command('serve'Server)
+manager=Manager(app)
+manager.add_command('server',Server)
 
 #init the Migrate
 migrate=Migrate(app,db)
-manage.add_command('db',MigrateCommand)
+manager.add_command('db',MigrateCommand)
+
+@manager.command
+def create_admin():
+    """Creates the admin user."""
+    db.session.add(User(
+        username="toel12",
+        email="toelapiut7@gmail.com",
+        password="admin",
+        admin=True,
+        confirmed_on=datetime.now())
+    )
+    db.session.commit()
 
 @manager.shell
 def make_shell_context():
-    return dict(app=app,db=db)
+    return dict(app=app,db=db,User=User,Blog=Blog,Comment=Comment)
 
 if __name__=='__main__':
     manager.run()
