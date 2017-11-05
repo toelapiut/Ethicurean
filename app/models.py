@@ -24,7 +24,7 @@ class User(UserMixin,db.Model):
 				paid=False, admin=False, confirmed_on=None):
 		self.username=username
 		self.email = email
-		self.password =generate_password_hash(password)
+		self.password = generate_password_hash(password)
 		self.registered_on = datetime.now()
 		self.admin = admin
 		self.confirmed_on = confirmed_on
@@ -47,6 +47,7 @@ class User(UserMixin,db.Model):
 class Blog(db.Model):
 	__tablename__='blogs'
 	id=db.Column(db.Integer,primary_key=True)
+	title=db.Column(db.String(100))
 	blog=db.Column(db.String(1000))
 	user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 	comments=db.relationship('Comment',backref='blog',lazy='dynamic')
