@@ -1,13 +1,14 @@
 from flask_mail import Message
+from flask import render_template
+from . import mail
 
-from project import app, mail
 
 
-def send_email(to, subject, template):
-    msg = Message(
-        subject,
-        recipients=[to],
-        html=template,
-        sender=app.config['MAIL_DEFAULT_SENDER']
-    )
-    mail.send(msg)
+def mail_message(subject,template,to,**kwargs):
+    send_email="toelapiut@gmail.com"
+
+    email=Message(subject,sender=sender_email,recipients=[to])
+    email.body=render_template(template+'.txt',**kwargs)
+    email.html=render_template(template+"html",**kwargs)
+    mail.send(email)
+
