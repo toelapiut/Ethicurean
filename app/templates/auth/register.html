@@ -1,0 +1,26 @@
+{%extends 'auth/auth-base.html'%}
+{%import 'bootstrap/wtf.html' as wtf%}
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Itim|Kranky|Londrina+Shadow" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+{% endblock %}
+
+{%block content%}
+    <div class='container' >
+        <div class='row' style="margin-top:200px">
+                <div class='col-md-6' style="text-align:center">
+                    <h2>Hello,Welcome to Ethicurean Fashion</h2>
+                    <hr style="height:32px;">
+                    <h6>Hello,Thank you for taking the time to visit.We specialize in <em>simple effective,user-centric</em>Fashion solutions.Fill your senses with <em><strong>highlight of work</strong></em>,read the juicy bits of Fashion </h6>
+                </div>                        
+                <div class='col-md-5 col-md-offset-1' style="text-align:center">
+                    <img src="{{url_for('static',filename='images/signup.jpg')}}" alt="check your connection" style="width:30%;height:30%">
+                    <h2>Register</h2>
+                    {{wtf.quick_form(registration_form)}}
+            </div>
+        </div>
+
+    </div>
+{%endblock%}

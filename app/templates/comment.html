@@ -1,0 +1,28 @@
+{%extends 'base.html'%} {%block content%} {%import 'bootstrap/wtf.html' as wtf%}
+
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Itim|Kranky|Londrina+Shadow" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+{% endblock %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12  col-sm-12 col-xs-12">
+
+        </div>
+        <div class="col-md-7 col-md-offset-2 col-sm-7 col-xs-6">
+                <h6><em>COMMENTS</em></h6>
+                <br>
+            {% for comments in comment %}
+            <li>  {{ comments.comment}}-{{comments.user.username}} </li>
+            {% endfor %}
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-6">
+                <h5><em>YOUR FEEDBACK WILL HELP</em></h5>
+                <br>
+            {{wtf.quick_form(form)}}
+        </div>
+    </div>
+</div>
+{%endblock%}
