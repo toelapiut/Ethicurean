@@ -15,6 +15,9 @@ class Config:
     SUBJECT_PREFIX = 'ethicurean'
     SENDER_EMAIL = "toelapiut7@gmail.com"
     
+    @staticmethod
+    def init_app(app):
+        pass
 
 class ProdConfig(Config):
     SQLALCHEMY_DATABASE_URI=os.environ.get('DATABASE_URL')
@@ -26,7 +29,7 @@ class DevConfig(Config):
     DEBUG=True
 
 
-config_options={
-    'development':DevConfig,
-    'production':ProdConfig
+config_options = {
+'development':DevConfig,
+'production':ProdConfig
 }
