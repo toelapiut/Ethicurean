@@ -20,6 +20,7 @@ def create_admin():
     db.session.add(User(
         username="toel12",
         email="toelapiut7@gmail.com",
+        bio="I am a freelancer a model and a fashionist",
         password="admin",
         admin=True,
         confirmed_on=datetime.now())
