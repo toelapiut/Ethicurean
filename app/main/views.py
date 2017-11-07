@@ -3,25 +3,24 @@ from . import main
 from .. import db, photos
 from flask_login import login_required,current_user
 from ..models import User,Comment,Blog
-from .forms import Comments,Blog,UpdateProfile
+from .forms import Comments,Bloger,UpdateProfile
 
 @main.route('/')
 def index():
 
-    title="Helo world"
-    admin=User.query.filter_by(admin=True)
+    title="Ethicurean"
+    all_blogs=Blog.query.all()
 
-    if admin is True:
-        return render_template('admin.html',title=title)
-    else:
-        return render_template('index.html',title=title)
+    print(len(all_blogs))
+  
+    return render_template('index.html',title=title,blog=all_blogs)
 
 
 @main.route('/comment/<int:id>',methods=['GET','POST'])
-# @login_required
+@login_required
 def add_comment(id):
     form_comment=Comments()
-    # blog=Blog.query.all()
+    blog=Blog.query.all()
     comment =Comment.query.filter_by(blog_id=id)
     if form_comment.validate_on_submit():
         feedback=form_comment.comments.data
@@ -30,23 +29,25 @@ def add_comment(id):
         db.session.add(new_comment)
         db.session.commit()
 
-        # return redirect(url_for('main.index'))
-    return render_template('comment.html',form=form_comment,comment=comment)
+        return redirect(url_for('main.index'))
+    return render_template('comment.html',form=form_comment,comment=comment,blog=blog)
 
-@main.route('/blog')
-# @login_required
+@main.route('/blog',methods=['GET','POST'])
+@login_required
 def add_blog():
-    form_blog=Blog()
+    form_blog=Bloger()
+
+    all_blogs=Blog.query.all()
 
     if form_blog.validate_on_submit():
         blog_title=form_blog.title.data
         blog_body=form_blog.blog.data
+        print(blog_title)
 
-        new_blog=Blog(title=blog_title,blog=blog_body)
-        db.session.add(new_blog)
-        db.session.commit()
+        new_blog=Blog(title=blog_title,blog=blog_body,user=current_user)
+        new_blog.save_blog()
 
-    return render_template('blog.html',form=form_blog)
+    return render_template('blog.html',form=form_blog,blog=all_blogs)
 
 @main.route('/user/<uname>')
 def profile(uname):
