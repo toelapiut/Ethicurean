@@ -1,0 +1,16 @@
+
+{% macro displayBlogList(blog_list) %}
+
+
+<div class="container">
+    <div class="row">
+        {% for blog in blog_list %}
+        <div class="col-md-4">
+            <h4>{{ blog.title}}</h4> <br>
+           <p> {{blog.blog}}</p>
+            <a href="comment/{{blog.id}}"> comments</a>
+        </div>        
+        {% endfor %}
+    </div>
+</div>
+{% endmacro %}
